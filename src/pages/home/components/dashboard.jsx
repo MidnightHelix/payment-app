@@ -17,6 +17,8 @@ const Login = ({ setIsLogin }) => {
 
   useEffect(() => {
     fetchData();
+    const intervalId = setInterval(fetchData, 10000);
+    return () => clearInterval(intervalId);
   }, [fetchData]);
 
   return (

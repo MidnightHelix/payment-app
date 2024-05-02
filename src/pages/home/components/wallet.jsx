@@ -10,13 +10,15 @@ const Login = ({ setIsLogin }) => {
   const fetchData = useCallback(async () => {
     setLoading(true);
     const response = await handleGetWallet();
-    setData(response?.data || []);
+    setData(response?.data || {});
     setError(response?.error || null);
     setLoading(false);
   }, []);
 
   useEffect(() => {
     fetchData();
+    const intervalId = setInterval(fetchData, 10000);
+    return () => clearInterval(intervalId);
   }, [fetchData]);
 
   return (
@@ -32,25 +34,23 @@ const Login = ({ setIsLogin }) => {
       </div>
       <section className="h-full overflow-auto">
         <div className="overflow-auto">
-        <section className="h-full overflow-auto">
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>Error: {error}</p>
-        ) : (
-          <ul>
-            {Array.isArray(data) && data.length > 0 ? (
-              data.map((item) => (
-                <li key={item.id}>
-                  Balance: {item.balance}
-                </li>
-              ))
+          <section className="h-full overflow-auto">
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p>Error: {error}</p>
             ) : (
-              <p>No data available</p>
+              <ul>
+                {data ? (
+                  <li key={data.id}>
+                    <h2 className="text-2xl font-bold">{data.balance}</h2>
+                  </li>
+                ) : (
+                  <p>No data available</p>
+                )}
+              </ul>
             )}
-          </ul>
-        )}
-      </section>
+          </section>
         </div>
       </section>
     </div>

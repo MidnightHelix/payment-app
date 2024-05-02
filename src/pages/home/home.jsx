@@ -65,15 +65,17 @@ const Home = () => {
               <Login setIsLogin={setIsLogin} />
             )}
           </div>
-          <input
-            type="radio"
-            name="my_tabs_2"
-            role="tab"
-            className="tab"
-            aria-label={isLogin ? "Wallet" : ""}
-            checked={tab === 4}
-            onChange={() => setTab(4)}
-          />
+          {isLogin && (
+            <input 
+              type="radio"
+              name="my_tabs_2"
+              role="tab"
+              className="tab"
+              aria-label="Wallet"
+              checked={tab === 4}
+              onChange={() => setTab(4)}
+            />
+          )}
           <div
             role="tabpanel"
             className="p-6 tab-content bg-base-100 border-base-300 rounded-box"

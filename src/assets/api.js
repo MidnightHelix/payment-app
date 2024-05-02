@@ -57,7 +57,7 @@ export const handlePostWithdrawal = async (payload) => {
 
      const token = localStorage.getItem('token');
 
-     await axios.post("http://localhost:3000/transactions/withdraw", data, {
+     await axios.post("http://127.0.0.1:3000/transactions/withdraw", data, {
        headers: {
          Authorization: `Bearer ${token}`
        }
@@ -124,7 +124,7 @@ export const handleGetWallet = async () => {
       }
     });
     return {
-      data: response?.data?.data || [],
+      data: response?.data?.data || {},
       error: null,
     };
   } catch (error) {
